@@ -22,6 +22,12 @@ export default function Home() {
           <Switch>
             <Route exact path="/create">
               <h1>create</h1>
+              <input
+                type="file"
+                accept="image/*"
+                id="upload-dish-image"
+                name="dish-image"
+              />
             </Route>
             <Route path="/details">
               <h1>details</h1>
