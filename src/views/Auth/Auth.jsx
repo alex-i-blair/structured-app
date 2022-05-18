@@ -36,6 +36,7 @@ export default function Auth({ isSigningUp = false }) {
       <div className="authForm">
         <AuthForm onSubmit={handleAuthSubmit} label={options.label} />
       </div>
+      <p>{options.message}</p>
     </>
   );
 }
