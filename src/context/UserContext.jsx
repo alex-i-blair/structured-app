@@ -50,7 +50,7 @@ export const useUser = () => {
   const context = useContext(UserContext);
 
   if (context === undefined) {
-    throw new Error('useUser must be used withina UserProvider');
+    throw new Error('useUser must be used within a UserProvider');
   }
   const { user } = context;
 

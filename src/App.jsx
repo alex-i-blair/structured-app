@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import Auth from './views/Auth/Auth';
 import Home from './views/Home/Home';
 import { UserProvider } from './context/UserContext';
+import PrivateRoute from './components/PrivateRoute/PrivateRoute';
 
 export default function App() {
   return (
@@ -14,9 +15,9 @@ export default function App() {
           <Route path="/register">
             <Auth />
           </Route>
-          <Route path="/">
+          <PrivateRoute path="/">
             <Home />
-          </Route>
+          </PrivateRoute>
         </Switch>
       </Router>
     </UserProvider>
