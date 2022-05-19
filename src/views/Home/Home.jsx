@@ -1,24 +1,8 @@
 import { Link, Switch, Route } from 'react-router-dom';
-import AuthButton from '../../components/AuthButton';
 
 export default function Home() {
   return (
     <>
-      <header
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-        }}
-      >
-        <Link to="/">
-          <h1>ironicgram</h1>
-        </Link>
-        <Link to="/profile">
-          <h3>username</h3>
-        </Link>
-        <AuthButton />
-      </header>
       <main>
         <Link to="/create">
           <button>create</button>

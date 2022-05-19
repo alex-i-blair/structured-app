@@ -2,12 +2,9 @@ import { useState } from 'react';
 
 export default function ProfileForm({
   formLabel = 'ProfileForm',
-  name = '',
   email,
-  bio = '',
   error,
   onSubmit,
-  profilePic = null,
 }) {
   console.log(email);
   const [formState, setFormState] = useState({});
@@ -62,13 +59,13 @@ export default function ProfileForm({
             placeholder="Tell the people about yourself"
             onChange={handleChange}
           />
-          <label htmlFor="profilePic">Upload a profile picture</label>
+          {/* <label htmlFor="profilePic">Upload a profile picture</label>
           <input
             type="file"
             name="profilePic"
             id="profilePic"
             accept="image/*"
-          />
+          /> */}
         </div>
         <button type="submit" disabled={saving}>
           {saving ? 'Saving...' : 'Save'}

@@ -4,11 +4,13 @@ import Home from './views/Home/Home';
 import ViewProfile from './views/Profile/ViewProfile';
 import { UserProvider } from './context/UserContext';
 import PrivateRoute from './components/PrivateRoute/PrivateRoute';
+import Header from './components/Layout/Header';
 
 export default function App() {
   return (
     <UserProvider>
       <Router>
+        <Header />
         <Switch>
           <Route path="/login">
             <Auth />
