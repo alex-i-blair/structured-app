@@ -13,11 +13,14 @@ export default function App() {
             <Auth />
           </Route>
           <Route path="/register">
-            <Auth />
+            <Auth isSigningUp />
           </Route>
-          <PrivateRoute path="/">
+          <PrivateRoute path="/profile">
             <Home />
           </PrivateRoute>
+          <Route path="/">
+            <Home />
+          </Route>
         </Switch>
       </Router>
     </UserProvider>
