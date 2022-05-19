@@ -7,6 +7,7 @@ export default function AuthForm({ label, onSubmit, inputs = {} }) {
   // };
   const [formState, setFormState] = useState(inputs);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -23,10 +24,12 @@ export default function AuthForm({ label, onSubmit, inputs = {} }) {
     const { email, password } = formState;
 
     try {
+      setError('');
       setLoading(true);
       await onSubmit(email, password);
     } catch (error) {
       setLoading(false);
+      setError(error.message);
     }
   };
 
@@ -55,6 +58,7 @@ export default function AuthForm({ label, onSubmit, inputs = {} }) {
           <button type="submit" disabled={loading}>
             {loading ? 'Loading...' : label}
           </button>
+          {error && <p>{error}</p>}
         </div>
       </fieldset>
     </form>

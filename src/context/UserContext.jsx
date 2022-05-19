@@ -1,10 +1,11 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import {
   getUser,
   signInUser,
   signUpUser,
   signOutUser,
 } from '../services/users';
+import { getProfile, createProfile, updateProfile } from '../services/profiles';
 
 export const UserContext = createContext();
 
@@ -14,8 +15,25 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState(
     currentUser ? { id: currentUser.id, email: currentUser.email } : {}
   );
+  const [profile, setProfile] = useState(null);
+  const [isLoaded, setIsLoaded] = useState(false);
 
-  const value = { user, setUser };
+  useEffect(() => {
+    const loadProfile = async () => {
+      setIsLoaded(false);
+      try {
+        if (!user) return setProfile();
+        const profile = await getProfile();
+        setProfile(profile);
+      } catch (error) {
+        setProfile(null);
+      } finally {
+        setIsLoaded(true);
+      }
+    };
+    loadProfile();
+  }, [user]);
+  const value = { user, setUser, profile, setProfile, isLoaded };
 
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
@@ -52,7 +70,17 @@ export const useUser = () => {
   if (context === undefined) {
     throw new Error('useUser must be used within a UserProvider');
   }
-  const { user } = context;
 
-  return { user };
+  const { user, profile, setProfile, isLoaded } = context;
+
+  const create = async (data) => {
+    const profile = await createProfile(data);
+    setProfile(profile);
+  };
+
+  const update = async (data) => {
+    const profile = await updateProfile(data);
+    setProfile(profile);
+  };
+  return { user, profile, isLoaded, create, update };
 };

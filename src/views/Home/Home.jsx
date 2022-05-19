@@ -1,4 +1,4 @@
-import { Link, BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Link, Switch, Route } from 'react-router-dom';
 import AuthButton from '../../components/AuthButton';
 
 export default function Home() {
@@ -14,7 +14,9 @@ export default function Home() {
         <Link to="/">
           <h1>ironicgram</h1>
         </Link>
-        <h3>username</h3>
+        <Link to="/profile">
+          <h3>username</h3>
+        </Link>
         <AuthButton />
       </header>
       <main>
@@ -34,8 +36,8 @@ export default function Home() {
               <input
                 type="file"
                 accept="image/*"
-                id="upload-dish-image"
-                name="dish-image"
+                name="imagePost"
+                id="imagePost"
               />
               <textarea
                 placeholder="Add a caption"
