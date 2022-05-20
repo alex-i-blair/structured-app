@@ -1,4 +1,6 @@
 import { Link, Switch, Route } from 'react-router-dom';
+import AllPosts from '../../components/Posts/AllPosts';
+import PrivateRoute from '../../components/PrivateRoute/PrivateRoute';
 
 export default function Home() {
   return (
@@ -8,7 +10,7 @@ export default function Home() {
           <button>create</button>
         </Link>
         <Switch>
-          <Route exact path="/create">
+          <PrivateRoute exact path="/create">
             <h1>create</h1>
             <div
               style={{
@@ -28,31 +30,11 @@ export default function Home() {
                 name="caption-input"
               ></textarea>
             </div>
-          </Route>
+          </PrivateRoute>
           <Route path="/details">
             <h1>details</h1>
           </Route>
-          <Route>
-            <div className="listView">
-              <ul>
-                <Link to="/details/:id">
-                  <p>user author</p>
-                  <img src="https://www.placecage.com/c/100/100" alt="" />
-                  <p>caption</p>
-                </Link>
-                <Link>
-                  <p>user author</p>
-                  <img src="https://www.placecage.com/c/100/101" alt="" />
-                  <p>caption</p>
-                </Link>
-                <Link>
-                  <p>user author</p>
-                  <img src="https://www.placecage.com/c/100/102" alt="" />
-                  <p>caption</p>
-                </Link>
-              </ul>
-            </div>
-          </Route>
+          <AllPosts />
         </Switch>
       </main>
     </>

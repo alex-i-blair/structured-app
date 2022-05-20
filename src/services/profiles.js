@@ -7,13 +7,16 @@ export async function getProfile() {
 export async function createProfile({ name, username, email, bio }) {
   const request = await client
     .from('profiles')
-    .insert({ name, username, email, bio });
+    .insert({ name, username, email, bio })
+    .single();
   return parseData(request);
 }
 
 export async function updateProfile({ name, username, email, bio }) {
   const request = await client
     .from('profiles')
-    .insert({ name, username, email, bio });
+    .update({ name, username, bio, email })
+    .match({ email })
+    .single();
   return parseData(request);
 }

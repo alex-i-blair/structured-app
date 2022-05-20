@@ -5,16 +5,17 @@ export default function ProfileForm({
   email,
   error,
   onSubmit,
+  name = '',
+  bio = '',
+  username = '',
 }) {
-  console.log(email);
-  const [formState, setFormState] = useState({});
+  const [formState, setFormState] = useState({ name, bio, username, email });
   const [saving, setSaving] = useState(false);
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormState((prevState) => {
       return {
         ...prevState,
-        email,
         [name]: value,
       };
     });
@@ -24,6 +25,7 @@ export default function ProfileForm({
     try {
       setSaving(true);
       await onSubmit(formState);
+      setSaving(false);
     } catch (err) {
       setSaving(false);
     }
@@ -35,6 +37,7 @@ export default function ProfileForm({
         <div>
           <label htmlFor="username">Username</label>
           <input
+            // placeholder={username}
             type="text"
             name="username"
             required
@@ -43,6 +46,7 @@ export default function ProfileForm({
           />
           <label htmlFor="name">Name</label>
           <input
+            // placeholder={name}
             type="text"
             name="name"
             value={formState.name}
@@ -52,6 +56,7 @@ export default function ProfileForm({
           <p>{email}</p>
           <label htmlFor="bio">Bio</label>
           <textarea
+            // defaultValue={bio}
             name="bio"
             id="bio"
             rows={4}
