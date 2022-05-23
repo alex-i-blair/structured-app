@@ -1,10 +1,14 @@
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom/cjs/react-router-dom.min';
+import {
+  useHistory,
+  useParams,
+} from 'react-router-dom/cjs/react-router-dom.min';
 import { useForm } from '../../hooks/useForm';
 import { deletePost, getPostDetails, updatePost } from '../../services/posts';
 
 export default function EditPost({ chirp = '' }) {
+  const history = useHistory();
   const [saving, setSaving] = useState(false);
   const { formState, handleChange } = useForm(chirp);
   const [post, setPost] = useState({});
@@ -20,7 +24,10 @@ export default function EditPost({ chirp = '' }) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await updatePost(formState, id);
+      setSaving(true);
+      await updatePost(formState.editChirp, id);
+      setSaving(false);
+      history.push('/');
     } catch (error) {
       setSaving(false);
     }

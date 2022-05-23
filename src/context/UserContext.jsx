@@ -30,7 +30,7 @@ export const UserProvider = ({ children }) => {
       }
     };
     loadPosts();
-  }, []);
+  }, [posts]);
 
   useEffect(() => {
     const loadProfile = async () => {
