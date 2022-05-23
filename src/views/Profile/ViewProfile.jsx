@@ -4,42 +4,53 @@ import ProfileForm from '../../components/ProfileForm/ProfileForm';
 import { useUser } from '../../context/UserContext';
 
 export default function ViewProfile() {
-  const { user, profile, isLoaded, create } = useUser();
+  const { user, profile, isLoaded, update } = useUser();
 
   if (!isLoaded) return null;
 
-  const hasProfile = user && profile;
+  const hasUpdatedProfile = user && profile.name;
 
-  const handleCreateProfile = async (profile) => {
-    await create(profile);
+  const handleUpdateProfile = async (profile) => {
+    await update(profile);
   };
 
-  return hasProfile ? (
-    <ShowProfile profile={profile} />
-  ) : (
-    <CreateProfile email={user.email} onCreate={handleCreateProfile} />
-  );
-}
-
-const ShowProfile = ({ profile }) => {
-  return (
+  return hasUpdatedProfile ? (
     <>
       <Link to="/profile/edit">
         <button>Edit profile</button>
       </Link>
       <Profile profile={profile} />
     </>
-  );
-};
-
-const CreateProfile = ({ email, onCreate }) => {
-  return (
+  ) : (
     <>
       <ProfileForm
         formLabel="create profile"
-        onSubmit={onCreate}
-        email={email}
+        onSubmit={handleUpdateProfile}
+        email={user.email}
       />
     </>
   );
-};
+}
+
+// const ShowProfile = ({ profile }) => {
+//   return (
+//     <>
+//       <Link to="/profile/edit">
+//         <button>Edit profile</button>
+//       </Link>
+//       <Profile profile={profile} />
+//     </>
+//   );
+// };
+
+// const CreateProfile = ({ email, onCreate }) => {
+//   return (
+//     <>
+//       <ProfileForm
+//         formLabel="create profile"
+//         onSubmit={onCreate}
+//         email={email}
+//       />
+//     </>
+//   );
+// };

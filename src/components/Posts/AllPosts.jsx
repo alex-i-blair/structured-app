@@ -1,25 +1,15 @@
-import { Link } from 'react-router-dom';
+import { usePosts } from '../../context/UserContext';
+import PostCard from './PostCard';
 
 export default function AllPosts() {
+  const { posts } = usePosts();
   return (
     <>
       <div className="listView">
         <ul>
-          <Link to="/details/:id">
-            <p>user author</p>
-            <img src="https://www.placecage.com/c/100/100" alt="" />
-            <p>caption</p>
-          </Link>
-          {/* <Link>
-            <p>user author</p>
-            <img src="https://www.placecage.com/c/100/101" alt="" />
-            <p>caption</p>
-          </Link>
-          <Link>
-            <p>user author</p>
-            <img src="https://www.placecage.com/c/100/102" alt="" />
-            <p>caption</p>
-          </Link> */}
+          {posts.map((post) => (
+            <PostCard key={post.id} post={post} />
+          ))}
         </ul>
       </div>
     </>

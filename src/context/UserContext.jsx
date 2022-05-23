@@ -1,11 +1,13 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { getPosts } from '../services/posts';
+import { createProfile, getProfile, updateProfile } from '../services/profiles';
 import {
   getUser,
   signInUser,
-  signUpUser,
   signOutUser,
+  signUpUser,
 } from '../services/users';
-import { getProfile, createProfile, updateProfile } from '../services/profiles';
 
 export const UserContext = createContext();
 
@@ -17,6 +19,23 @@ export const UserProvider = ({ children }) => {
   );
   const [profile, setProfile] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [posts, setPosts] = useState([]);
+  const history = useHistory();
+
+  useEffect(() => {
+    const loadPosts = async () => {
+      setIsLoaded(false);
+      try {
+        if (!posts) return;
+        setPosts(await getPosts());
+      } catch (error) {
+        setPosts(null);
+      } finally {
+        setIsLoaded(true);
+      }
+    };
+    loadPosts();
+  }, history);
 
   useEffect(() => {
     const loadProfile = async () => {
@@ -33,8 +52,7 @@ export const UserProvider = ({ children }) => {
     };
     loadProfile();
   }, [user]);
-  const value = { user, setUser, profile, setProfile, isLoaded };
-
+  const value = { user, setUser, profile, posts, setProfile, isLoaded };
   return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
 };
 
@@ -50,6 +68,7 @@ export const useAuth = () => {
   const signUp = async (email, password) => {
     const user = await signUpUser(email, password);
     setUser(user);
+    await createProfile({ username: email });
   };
   const signIn = async (email, password) => {
     const user = await signInUser(email, password);
@@ -64,6 +83,16 @@ export const useAuth = () => {
   return { user, isLoggedIn, signUp, signIn, signOut };
 };
 
+export const usePosts = () => {
+  const context = useContext(UserContext);
+  if (context === undefined) {
+    throw new Error('useUser must be used within a UserProvider');
+  }
+  const { posts } = context;
+
+  return { posts };
+};
+
 export const useUser = () => {
   const context = useContext(UserContext);
 
@@ -73,14 +102,9 @@ export const useUser = () => {
 
   const { user, profile, setProfile, isLoaded } = context;
 
-  const create = async (data) => {
-    const profile = await createProfile(data);
-    setProfile(profile);
-  };
-
   const update = async (data) => {
     const profile = await updateProfile(data);
     setProfile(profile);
   };
-  return { user, profile, isLoaded, create, update };
+  return { user, profile, isLoaded, update };
 };

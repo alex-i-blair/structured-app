@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 export default function ProfileForm({
   formLabel = 'ProfileForm',
-  email,
+  email = '',
   error,
   onSubmit,
   name = '',
@@ -41,7 +41,7 @@ export default function ProfileForm({
             type="text"
             name="username"
             required
-            value={formState.username}
+            value={formState?.username}
             onChange={handleChange}
           />
           <label htmlFor="name">Name</label>
@@ -49,7 +49,7 @@ export default function ProfileForm({
             // placeholder={name}
             type="text"
             name="name"
-            value={formState.name}
+            value={formState?.name}
             onChange={handleChange}
           />
           <label htmlFor="email">Email</label>
@@ -60,7 +60,7 @@ export default function ProfileForm({
             name="bio"
             id="bio"
             rows={4}
-            value={formState.bio}
+            value={formState?.bio}
             placeholder="Tell the people about yourself"
             onChange={handleChange}
           />

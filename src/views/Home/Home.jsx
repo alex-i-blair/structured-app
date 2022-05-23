@@ -1,6 +1,8 @@
 import { Link, Switch, Route } from 'react-router-dom';
 import AllPosts from '../../components/Posts/AllPosts';
 import PrivateRoute from '../../components/PrivateRoute/PrivateRoute';
+import CreatePost from '../CreatePost/CreatePost';
+import PostDetails from '../Details/PostDetails';
 
 export default function Home() {
   return (
@@ -12,27 +14,10 @@ export default function Home() {
         <Switch>
           <PrivateRoute exact path="/create">
             <h1>create</h1>
-            <div
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                width: '20rem',
-              }}
-            >
-              <input
-                type="file"
-                accept="image/*"
-                name="imagePost"
-                id="imagePost"
-              />
-              <textarea
-                placeholder="Add a caption"
-                name="caption-input"
-              ></textarea>
-            </div>
+            <CreatePost />
           </PrivateRoute>
-          <Route path="/details">
-            <h1>details</h1>
+          <Route path="/details/:postId">
+            <PostDetails />
           </Route>
           <AllPosts />
         </Switch>

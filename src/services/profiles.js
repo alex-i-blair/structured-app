@@ -12,11 +12,11 @@ export async function createProfile({ name, username, email, bio }) {
   return parseData(request);
 }
 
-export async function updateProfile({ name, username, email, bio }) {
+export async function updateProfile({ id, name, username, email, bio }) {
   const request = await client
     .from('profiles')
     .update({ name, username, bio, email })
-    .match({ email })
+    .match({ id })
     .single();
   return parseData(request);
 }
