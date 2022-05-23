@@ -1,11 +1,8 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Header from './components/Layout/Header';
+import { UserProvider } from './context/UserContext';
 import Auth from './views/Auth/Auth';
 import Home from './views/Home/Home';
-import ViewProfile from './views/Profile/ViewProfile';
-import { UserProvider } from './context/UserContext';
-import PrivateRoute from './components/PrivateRoute/PrivateRoute';
-import Header from './components/Layout/Header';
-import EditProfile from './components/Profile/EditProfile';
 
 export default function App() {
   return (
@@ -19,12 +16,6 @@ export default function App() {
           <Route path="/register">
             <Auth isSigningUp />
           </Route>
-          <PrivateRoute path="/profile/edit">
-            <EditProfile />
-          </PrivateRoute>
-          <PrivateRoute path="/profile">
-            <ViewProfile />
-          </PrivateRoute>
           <Route path="/">
             <Home />
           </Route>

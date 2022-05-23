@@ -14,9 +14,6 @@ const Header = () => {
         <Link to="/">
           <h1>ironicgram</h1>
         </Link>
-        <Link to="/profile">
-          <h3>username</h3>
-        </Link>
         <AuthButton />
       </header>
     </div>
