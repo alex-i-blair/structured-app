@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { getPostDetails } from '../../services/posts';
 
 export default function PostDetails() {
@@ -18,6 +18,9 @@ export default function PostDetails() {
   }, [postId]);
   return (
     <>
+      <Link to={`/edit-post/${postId}`}>
+        <button>edit</button>
+      </Link>
       {loading ? (
         <p>loading...</p>
       ) : (

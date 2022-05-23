@@ -10,6 +10,19 @@ export async function getPostDetails(id) {
   return parseData(request);
 }
 
+export async function updatePost(chirp, id) {
+  const request = await client
+    .from('posts')
+    .update({ chirp })
+    .match({ id })
+    .single();
+  return parseData(request);
+}
+
+export async function deletePost(id) {
+  await client.from('posts').delete().match({ id });
+}
+
 export async function postPost({ chirp, username }) {
   const request = await client
     .from('posts')
