@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { useUser } from '../../context/UserContext';
+import { useUser } from '../../hooks/user';
 import { postPost } from '../../services/posts';
 
 export default function CreatePost({ error }) {

@@ -12,7 +12,7 @@ const Header = () => {
         }}
       >
         <Link to="/">
-          <h1>ironicgram</h1>
+          <h1>Chirper</h1>
         </Link>
         <AuthButton />
       </header>

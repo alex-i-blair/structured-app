@@ -1,4 +1,4 @@
-import { usePosts } from '../../context/UserContext';
+import { usePosts } from '../../hooks/user';
 import PostCard from './PostCard';
 
 export default function AllPosts() {

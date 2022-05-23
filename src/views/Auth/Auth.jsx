@@ -4,7 +4,7 @@ import {
   useHistory,
 } from 'react-router-dom/cjs/react-router-dom.min';
 import AuthForm from '../../components/AuthForm/AuthForm';
-import { useAuth } from '../../context/UserContext';
+import { useAuth } from '../../hooks/user';
 
 export default function Auth({ isSigningUp = false }) {
   const history = useHistory();
