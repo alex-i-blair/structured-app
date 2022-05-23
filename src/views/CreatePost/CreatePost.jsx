@@ -15,6 +15,7 @@ export default function CreatePost({ error }) {
       return {
         ...prevState,
         chirp,
+        username: profile.username,
       };
     });
   };
@@ -23,7 +24,7 @@ export default function CreatePost({ error }) {
     event.preventDefault();
     try {
       setSaving(true);
-      await postPost(formState, profile.id);
+      await postPost(formState);
       setSaving(false);
       history.push('/');
     } catch (err) {
