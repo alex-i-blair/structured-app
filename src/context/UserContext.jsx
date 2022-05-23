@@ -1,5 +1,4 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { getPosts } from '../services/posts';
 import { createProfile, getProfile, updateProfile } from '../services/profiles';
 import {
@@ -20,22 +19,18 @@ export const UserProvider = ({ children }) => {
   const [profile, setProfile] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [posts, setPosts] = useState([]);
-  const history = useHistory();
 
   useEffect(() => {
     const loadPosts = async () => {
-      setIsLoaded(false);
       try {
         if (!posts) return;
         setPosts(await getPosts());
       } catch (error) {
         setPosts(null);
-      } finally {
-        setIsLoaded(true);
       }
     };
     loadPosts();
-  }, history);
+  }, []);
 
   useEffect(() => {
     const loadProfile = async () => {
